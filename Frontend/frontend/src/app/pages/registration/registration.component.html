@@ -5,31 +5,37 @@
         <p class="header-text">Registration form</p>
 
         <div class="container-content">
-            <form class="margin-t">
+            <form (submit)="registration(); $event.preventDefault()" class="margin-t">
                 <div class="form-group margin-b-md">
-                    <input type="text" class="form-control" placeholder="First Name..." required />
+                    <input [(ngModel)]="user.first_name" name="first_name" type="text" class="form-control" placeholder="First Name..." required />
                 </div>
 
                 <div class="form-group margin-b-md">
-                    <input type="text" class="form-control" placeholder="Last Name..." required />
+                    <input [(ngModel)]="user.last_name" name="last_name" type="text" class="form-control" placeholder="Last Name..." required />
                 </div>
 
+                
                 <div class="form-group margin-b-md">
-                    <input type="tel" class="form-control" placeholder="Phone number..." required />
+                    <input [(ngModel)]="user.username" name="username" type="text" class="form-control" placeholder="Username..." required />
                 </div>
-
+                
                 <div class="form-group margin-b-md">
-                    <input type="text" class="form-control" placeholder="Username..." required />
+                    <input [(ngModel)]="user.password" name="password" type="password" class="form-control" placeholder="Password..." required />
                 </div>
-
+                
                 <div class="form-group margin-b-md">
-                    <input type="password" class="form-control" placeholder="Password..." required />
+                    <input [(ngModel)]="user.confirm_password" name="confirm_password" type="password" class="form-control" placeholder="Confirm password..." required />
                 </div>
-
+                
                 <div class="form-group margin-b-md">
-                    <input type="password" class="form-control" placeholder="Confirm password..." required />
+                    <input [(ngModel)]="user.phone_number" name="phone_number" type="tel" class="form-control" placeholder="Phone number..." required />
                 </div>
-
+                
+                <div class="form-group margin-b-md" *ngIf="registrationError">
+                    <div class="error-message">
+                        {{ registrationError }}
+                    </div>
+                </div>
                 <button type="submit" class="form-button button-l margin-b">Register</button>
 
                 

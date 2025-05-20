@@ -105,6 +105,17 @@ a.text-darkyellow:hover {
     background-color: #3a3a3aa2;
     border-radius: 6px;
 }
+.error-message {
+    color: #b00020; /* crvena boja */
+    background-color: white; /* svetloroza pozadina */
+    border: 1px solid red;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+    animation: fadeIn 0.3s ease-in-out;
+}
 
 /* Animation */
 @keyframes fadeIn {
