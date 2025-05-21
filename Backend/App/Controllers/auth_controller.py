@@ -24,8 +24,8 @@ def login(login_dto: LoginUserDTO, auth_service = Depends(get_auth_service)):
     try:
         print(login_dto)
         result = auth_service.login(login_dto)
-        print(result)
-        return JSONResponse(content={"message": result})
+
+        return JSONResponse(content={"message": result['result'], "jwt_token": result['jwt']})
     except Exception as e:
         print('[Controller] An error was occurred during logging : ', e)
 

@@ -147,6 +147,12 @@ input.hamburger-checkbox {
   border-radius: 5px;
   z-index: 200;
 }
+.logout-button button{
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
 
 .logout-button:hover{
     background-color: #ff4d4f;

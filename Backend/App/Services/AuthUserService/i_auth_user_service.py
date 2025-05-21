@@ -14,7 +14,7 @@ class IAuthUserService(ABC):
     def is_valid(self, dto: RegisterUserDTO) -> str:
         pass
     @abstractmethod
-    def login(self, dto: LoginUserDTO) -> str:
+    def login(self, dto: LoginUserDTO) -> dict:
         pass
 
     @abstractmethod

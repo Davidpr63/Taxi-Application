@@ -1,6 +1,9 @@
+from datetime import timedelta
+
 from Backend.App.DtoModels.LoginUserDTO import LoginUserDTO
 from Backend.App.DtoModels.userDTO import RegisterUserDTO
 from Backend.App.Models.user import User
+from Backend.App.Services.AuthUserService.Jwt import jwt_config
 from Backend.App.Services.AuthUserService.i_auth_user_service import IAuthUserService
 from Backend.CloudStorage.TableStorage.user_table_storage import UserTableStorage
 import bcrypt
@@ -42,18 +45,25 @@ class AuthUserService(IAuthUserService):
         except Exception as e:
             print('is valid error : ', e)
 
-    def login(self, dto: LoginUserDTO) -> str:
+    def login(self, dto: LoginUserDTO) -> dict:
         try:
-            message = f"Welcome {dto.username}"
+            message = {
+                "result": "success",
+                "jwt": ""
+            }
             all_user = self.user_table_storage.get_all()
             exist_user = [
                 user for user in all_user
                 if user["Username"] == dto.username and self.verify_password(dto.password, user["Password"])
             ]
             if exist_user:
+                message["jwt"] = jwt_config.create_access_token(
+                    data={"sub": exist_user[0]['Username'], "role": "user"},
+                    expires_delta=timedelta(minutes=30)
+                )
                 return message
             else:
-                message = "Invalid username or password"
+                message["result"] = "Invalid username or password"
                 return message
         except Exception as e:
             print("An error occurred during logging user: ", e)

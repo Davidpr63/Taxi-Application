@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-login',
   imports: [FormsModule, CommonModule],
@@ -33,6 +34,9 @@ export class LoginComponent {
     this.auth_service.login(this.loginUserDto).subscribe({
       next: (res) => {
         if(res.message === "success"){
+          
+          this.auth_service.saveToken(res.jwt_token)
+          
           this.router.navigate([""])
         }
         else
@@ -46,4 +50,7 @@ export class LoginComponent {
     })
 
   }
+
+  
+
 }
