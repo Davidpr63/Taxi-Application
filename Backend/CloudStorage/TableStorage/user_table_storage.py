@@ -19,6 +19,7 @@ class UserTableStorage(IUserTableStorage):
 
     def create_or_update(self, entity):
         try:
+            print(entity)
             self.table_client.upsert_entity(entity)
         except Exception as e:
             print('An error was occurred during creating or updating user : ', e)

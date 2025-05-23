@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from Backend.App.Controllers import auth_controller
+from Backend.App.Controllers import auth_controller, user_controller
 
 app = FastAPI()
 
@@ -16,3 +16,4 @@ app.add_middleware(
 def test():
     return "radi"
 app.include_router(auth_controller.router)
+app.include_router(user_controller.router)

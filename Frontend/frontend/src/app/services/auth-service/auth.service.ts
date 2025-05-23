@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginUserDTO, RegisterUserDTO } from '../models/UserDTO';
+import { LoginUserDTO, RegisterUserDTO } from '../../models/UserDTO';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 

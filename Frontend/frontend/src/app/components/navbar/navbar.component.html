@@ -24,25 +24,25 @@
       </nav>
       
       <ng-container *ngIf="(isLoggedIn$ | async) === true">
-    <nav *ngIf="(userRole$ | async) as role">
-      <ul class="menu-links" *ngIf="role === 'admin'">
-        <li><a routerLink="">Home</a></li> 
-        <li><a routerLink="/all-drivers">Drivers</a></li>
-        <li><a routerLink="/driver-requests">Driver requests</a></li> 
-        <li><a routerLink="/edit-profile">Edit profile</a></li>  
-      </ul>    
-      <ul class="menu-links" *ngIf="role === 'driver'">
-        <li><a routerLink="">Home</a></li> 
-        <li><a routerLink="/registration">Registration</a></li>
-        <li><a routerLink="/edit-profile">Edit profile</a></li>    
-      </ul>    
-      <ul class="menu-links" *ngIf="role === 'user'">
-        <li><a routerLink="">Home</a></li> 
-        <li><a routerLink="/rides">Rides</a></li>
-        <li><a routerLink="/edit-profile">Edit profile</a></li>    
-      </ul> 
-    </nav>
-  </ng-container>
+        <nav *ngIf="(userRole$ | async) as role">
+          <ul class="menu-links" *ngIf="role === 'admin'">
+            <li><a routerLink="">Home</a></li> 
+            <li><a routerLink="/all-drivers">Drivers</a></li>
+            <li><a routerLink="/driver-requests">Driver requests</a></li> 
+            <li><a routerLink="/my-profile">Edit profile</a></li>  
+          </ul>    
+          <ul class="menu-links" *ngIf="role === 'driver'">
+            <li><a routerLink="">Home</a></li> 
+            <li><a routerLink="/registration">Registration</a></li>
+            <li><a routerLink="/my-profile">Edit profile</a></li>    
+          </ul>    
+          <ul class="menu-links" *ngIf="role === 'user'">
+            <li><a routerLink="">Home</a></li> 
+            <li><a routerLink="/rides">Rides</a></li>
+            <li><a routerLink="/my-profile">Edit profile</a></li>    
+          </ul> 
+        </nav>
+      </ng-container>
     
     </div>
   

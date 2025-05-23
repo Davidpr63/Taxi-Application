@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginUserDTO } from '../../models/UserDTO';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth-service/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -36,7 +36,7 @@ export class LoginComponent {
         if(res.message === "success"){
           
           this.auth_service.saveToken(res.jwt_token)
-          
+          this.loginError = "";
           this.router.navigate([""])
         }
         else

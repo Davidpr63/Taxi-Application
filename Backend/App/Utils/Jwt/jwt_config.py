@@ -21,6 +21,16 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     })
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+def get_row_key_from_token(token: str) -> str:
+    try:
+        payload = decode_token(token)
+        row_key = payload.get("sub")
+        if row_key is None:
+            return "invalid token"
+        return row_key
+    except Exception as e:
+        print("An error was occurred while trying to get row_key from jwt : ", e)
+
 def decode_token(token: str):
     return jwt.decode(
         token,

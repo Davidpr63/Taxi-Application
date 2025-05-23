@@ -1,5 +1,9 @@
-from Backend.App.DtoModels.userDTO import RegisterUserDTO
+from Backend.App.DtoModels.new_user_data import NewUserDataDTO
+from Backend.App.DtoModels.user_dto import RegisterUserDTO
 import uuid
+
+from Backend.App.DtoModels.user_profile_dto import UserProfileDTO
+
 
 class User:
 
@@ -22,6 +26,7 @@ class User:
         self.confirm_password = confirm_password,
         self.phone_number = phone_number
 
+    # for cloud storage
     def to_entity(self) -> dict:
         return {
             "PartitionKey": self.PARTITION_KEY,
@@ -32,26 +37,43 @@ class User:
             "Password":self.password,
             "PhoneNumber":self.phone_number
         }
+
+    # from cloud storage
     @classmethod
     def from_entity(cls, entity: dict):
         return cls(
-            user_id=entity["RowKey", " "],
-            first_name=entity["FirstName", " " ],
-            last_name=entity["LastName", " "],
-            username=entity["Username", " "],
-            password=entity["Password", " "],
-            confirm_password="",
-            phone_number=entity["PhoneNumber", " "]
+            user_id=entity.get('RowKey'),
+            first_name=entity.get('FirstName'),
+            last_name=entity.get('LastName'),
+            username=entity.get('Username'),
+            password=entity.get('Password'),
+            confirm_password='',
+            phone_number=entity.get('PhoneNumber')
         )
 
-    def to_dto(self) -> RegisterUserDTO:
-        return UserDTO(
-            user_id=self.user_id,
+    def update_data(self, new_user_data):
+        self.first_name = new_user_data.first_name
+        self.last_name = new_user_data.last_name
+        self.username = new_user_data.username
+        self.password = new_user_data.password
+        self.phone_number = new_user_data.phone_number
+
+    def updated_user_data_to_entity(self, row_key) -> dict:
+        return {
+            "PartitionKey": self.PARTITION_KEY,
+            "RowKey": row_key,
+            "FirstName": self.first_name,
+            "LastName": self.last_name,
+            "Username": self.username,
+            "Password": self.password,
+            "PhoneNumber": self.phone_number
+        }
+
+    def to_dto(self) -> UserProfileDTO:
+        return UserProfileDTO(
             first_name=self.first_name,
             last_name=self.last_name,
             username=self.username,
-            password="",
-            confirm_password="",
             phone_number=self.phone_number
         )
 
@@ -59,6 +81,17 @@ class User:
     def from_dto(cls, dto: RegisterUserDTO):
         return cls(
             user_id="",
+            first_name=dto.first_name,
+            last_name=dto.last_name,
+            username=dto.username,
+            password=dto.password,
+            confirm_password=dto.confirm_password,
+            phone_number=dto.phone_number
+        )
+
+    @classmethod
+    def from_new_user_data_dto(cls, dto: NewUserDataDTO):
+        return cls(
             first_name=dto.first_name,
             last_name=dto.last_name,
             username=dto.username,

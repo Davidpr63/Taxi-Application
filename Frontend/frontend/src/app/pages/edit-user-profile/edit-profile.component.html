@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="registration-container text-c animated flipInX">
+        
+
+        <p class="header-text">Your data</p>
+
+        <div class="container-content">
+            <form (submit)="update(); $event.preventDefault()" class="margin-t">
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="user.first_name" name="first_name" type="text" class="form-control"  required />
+                </div>
+
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="user.last_name" name="last_name" type="text" class="form-control"   required />
+                </div>
+
+                
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="user.username" name="username" type="text" class="form-control"   required />
+                </div>
+                
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="newUserDataDTO.password"  name="password" type="password" class="form-control" placeholder="New password..."  />
+                </div>
+                
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="newUserDataDTO.confirm_password"  name="confirm_password" type="password" class="form-control" placeholder="Confirm new password..."  />
+                </div>
+                
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="user.phone_number" name="phone_number" type="tel" class="form-control"  required />
+                </div>
+                
+                <div class="form-group margin-b-md" *ngIf="EditError">
+                    <div class="error-message">
+                        {{ EditError }}
+                    </div>
+                </div>
+                <button type="submit" class="form-button button-l margin-b">Update</button>
+
+                
+            </form>
+
+        
+        </div>
+    </div>
+
+</div>

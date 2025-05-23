@@ -1,8 +1,9 @@
 import { Component, NgModule } from '@angular/core';
 import { RegisterUserDTO } from '../../models/UserDTO';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth-service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -23,7 +24,7 @@ export class RegistrationComponent {
     phone_number: "",  
   }
  
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   registration(){
     if(!this.user.first_name || !this.user.last_name || !this.user.username || !this.user.password || !this.user.confirm_password || !this.user.phone_number) {
@@ -32,8 +33,12 @@ export class RegistrationComponent {
     }
     this.authService.register(this.user).subscribe({
       next: (res) => {
-        if(res.message === "success")
+        if(res.message === "success"){
           alert(res.message)
+          this.registrationError = "";
+          this.router.navigate(['/login']);
+        }
+          
         else
           this.registrationError = res.message
       },

@@ -1,13 +1,14 @@
 from datetime import timedelta
 
-from Backend.App.DtoModels.LoginUserDTO import LoginUserDTO
-from Backend.App.DtoModels.userDTO import RegisterUserDTO
+from Backend.App.DtoModels.login_user_dto import LoginUserDTO
+from Backend.App.DtoModels.user_dto import RegisterUserDTO
 from Backend.App.Models.user import User
-from Backend.App.Services.AuthUserService.Jwt import jwt_config
+from Backend.App.Utils.Jwt import jwt_config
 from Backend.App.Services.AuthUserService.i_auth_user_service import IAuthUserService
+from Backend.App.Utils.Security.security import Security
 from Backend.CloudStorage.TableStorage.user_table_storage import UserTableStorage
-import bcrypt
 
+security = Security()
 class AuthUserService(IAuthUserService):
 
 
@@ -20,7 +21,7 @@ class AuthUserService(IAuthUserService):
             print('message', message)
             if message == "success":
                 new_user = User.from_dto(dto)
-                new_user.password = self.hash_password(new_user.password)
+                new_user.password = security.hash_password(new_user.password)
                 self.user_table_storage.create_or_update(new_user.to_entity())
                 return message
             else:
@@ -54,11 +55,11 @@ class AuthUserService(IAuthUserService):
             all_user = self.user_table_storage.get_all()
             exist_user = [
                 user for user in all_user
-                if user["Username"] == dto.username and self.verify_password(dto.password, user["Password"])
+                if user["Username"] == dto.username and security.verify_password(dto.password, user["Password"])
             ]
             if exist_user:
                 message["jwt"] = jwt_config.create_access_token(
-                    data={"sub": exist_user[0]['Username'], "role": "user"},
+                    data={"sub": exist_user[0]['RowKey'], "role": "user"},
                     expires_delta=timedelta(minutes=30)
                 )
                 return message
@@ -68,18 +69,4 @@ class AuthUserService(IAuthUserService):
         except Exception as e:
             print("An error occurred during logging user: ", e)
 
-    def hash_password(self, plain_password: str)  -> str:
-        try:
-            password_bytes = plain_password.encode('utf-8')
-            hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
-            return hashed.decode('utf-8')
-        except Exception as e:
-            print('Hash password error: ', e)
-
-
-    def verify_password(self, plain_password: str, hashed_password):
-        try:
-            return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
-        except Exception as e:
-            print('Verify password error: ', e)
 

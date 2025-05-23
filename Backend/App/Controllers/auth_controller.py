@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 
 from Backend.App.Core.dependencies import get_auth_service
-from Backend.App.DtoModels.LoginUserDTO import LoginUserDTO
-from Backend.App.DtoModels.userDTO import RegisterUserDTO
+from Backend.App.DtoModels.login_user_dto import LoginUserDTO
+from Backend.App.DtoModels.user_dto import RegisterUserDTO
 
 router = APIRouter(prefix="/api/auth")
 

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from Backend.App.DtoModels.LoginUserDTO import LoginUserDTO
-from Backend.App.DtoModels.userDTO import RegisterUserDTO
+from Backend.App.DtoModels.login_user_dto import LoginUserDTO
+from Backend.App.DtoModels.user_dto import RegisterUserDTO
 
 
 class IAuthUserService(ABC):
@@ -17,10 +17,3 @@ class IAuthUserService(ABC):
     def login(self, dto: LoginUserDTO) -> dict:
         pass
 
-    @abstractmethod
-    def hash_password(self, plain_password: str) -> str:
-        pass
-
-    @abstractmethod
-    def verify_password(self, plain_password: str, hashed_password: str) -> bool:
-        pass
