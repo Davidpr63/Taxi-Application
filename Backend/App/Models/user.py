@@ -3,6 +3,7 @@ from Backend.App.DtoModels.user_dto import RegisterUserDTO
 import uuid
 
 from Backend.App.DtoModels.user_profile_dto import UserProfileDTO
+from Backend.App.Models.user_type import UserType
 
 
 class User:
@@ -16,7 +17,8 @@ class User:
                  username :str,
                  password :str,
                  confirm_password: str,
-                 phone_number :str
+                 phone_number :str,
+                 user_type: UserType
                  ):
         self.user_id = user_id
         self.first_name = first_name
@@ -25,6 +27,7 @@ class User:
         self.password = password
         self.confirm_password = confirm_password,
         self.phone_number = phone_number
+        self.user_type = user_type
 
     # for cloud storage
     def to_entity(self) -> dict:
@@ -35,7 +38,8 @@ class User:
             "LastName":self.last_name,
             "Username":self.username,
             "Password":self.password,
-            "PhoneNumber":self.phone_number
+            "PhoneNumber":self.phone_number,
+            "UserType":self.user_type
         }
 
     # from cloud storage
@@ -48,8 +52,12 @@ class User:
             username=entity.get('Username'),
             password=entity.get('Password'),
             confirm_password='',
-            phone_number=entity.get('PhoneNumber')
+            phone_number=entity.get('PhoneNumber'),
+            user_type=entity.get('UserType')
         )
+
+    def change_user_role(self, new_role: UserType):
+        self.user_type = new_role
 
     def update_data(self, new_user_data):
         self.first_name = new_user_data.first_name
@@ -66,7 +74,8 @@ class User:
             "LastName": self.last_name,
             "Username": self.username,
             "Password": self.password,
-            "PhoneNumber": self.phone_number
+            "PhoneNumber": self.phone_number,
+            "UserType": self.user_type
         }
 
     def to_dto(self) -> UserProfileDTO:
@@ -86,7 +95,8 @@ class User:
             username=dto.username,
             password=dto.password,
             confirm_password=dto.confirm_password,
-            phone_number=dto.phone_number
+            phone_number=dto.phone_number,
+            user_type=UserType.USER
         )
 
     @classmethod

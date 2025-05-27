@@ -1,0 +1,38 @@
+<div class="page-container">
+  <h1 class="page-title">Ride Requests</h1>
+  <div class="table-container">
+    <table class="fancy-table">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Pickup address</th>
+          <th>Destination address</th>
+          <th>Date Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let ride of rides">
+          <td>{{ ride.passangerFirstname }}</td>
+          <td>{{ ride.passangerLastname }}</td>
+          <td>{{ ride.pickupAddress }}</td>
+          <td>{{ ride.destinationAddress }}</td>
+          <td>{{ ride.datetime | date: 'dd.MM.yyyy. HH:mm' }}</td>
+          <td>
+            <span [style.color]="ride.status === 'Accepted' ? 'green' : ride.status === 'Rejected' ? 'red' : ride.status === 'Pending' ? 'yellow' :'black'">
+              {{ ride.status }}
+            </span>
+          </td>
+          
+          <td>
+            <button (click)="acceptRide(ride.rideId)">Accept</button>
+          </td>
+         
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

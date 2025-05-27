@@ -1,1 +1,37 @@
-<p>home works!</p>
+<div class="wrapper">
+    <div class="home-container text-c animated flipInX">
+        
+
+        <p class="header-text">Enter Addresses</p>
+
+        <div  class="container-content">
+            
+            <form (submit)="submit()" class="margin-t" *ngIf="!isLoading">
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="rideRequest.pickupAddress" name="PickupAddress" type="text" class="form-control" placeholder="Pickup address..." required />
+                </div>
+
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="rideRequest.destinationAddress" name="DestinationAddress" type="text" class="form-control" placeholder="Destination address..." required />
+                </div>
+
+                <div class="form-group margin-b-md" *ngIf="formError">
+                    <div class="error-message">
+                        {{ formError }}
+                    </div>
+                </div>
+
+                <button type="submit" class="form-button button-l margin-b">Request Ride</button>
+
+
+                <p class="text-whitesmoke"><small>Don't have an account?</small></p>
+                <a class="text-darkyellow" href="/registration"><small>Sign Up</small></a>
+            </form>
+            <div *ngIf="isLoading" class="loading-page">
+                <app-ride-request-animation/>
+            </div>
+        
+        </div>
+    </div>
+
+</div>

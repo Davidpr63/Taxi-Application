@@ -1,3 +1,5 @@
+from traceback import print_tb
+
 from fastapi import APIRouter
 from fastapi.params import Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -13,8 +15,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 @router.get("/my-profile")
 def user_profile(token: str = Depends(oauth2_scheme), user_service = Depends(get_user_service)):
     try:
-
+        print(token)
         row_key = jwt_config.get_row_key_from_token(token)
+        print(row_key)
         user_profile_dto = user_service.get_user_data(row_key)
         return JSONResponse(user_profile_dto)
     except Exception as e:

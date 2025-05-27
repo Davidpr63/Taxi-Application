@@ -43,10 +43,10 @@ class UserTableStorage(IUserTableStorage):
             results = list(self.table_client.query_entities(query_filter=None))
             user = [x for x in results if x["Username"] == username]
 
-            if user is None:
-                return None
+            if user:
+                return True
             else:
-                return user
+                return False
 
 
         except Exception as e:

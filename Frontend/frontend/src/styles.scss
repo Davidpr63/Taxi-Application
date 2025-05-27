@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('images/781959.jpg'); /* Prilagodi putanju ako je druga */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  font-family: sans-serif; /* Po želji */
+}

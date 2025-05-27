@@ -16,7 +16,7 @@ class UserService(IUserService):
             user = User.from_entity(self.user_table_storage.get_by_id(row_key))
 
             user_profile_dto = User.to_dto(user)
-            print('dsasd', user_profile_dto)
+
             return user_profile_dto.dict()
         except Exception as e:
             print("An error was occurred while trying to get data for user: ", e)

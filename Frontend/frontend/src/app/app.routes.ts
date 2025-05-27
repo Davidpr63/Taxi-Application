@@ -30,5 +30,17 @@ export const routes: Routes = [
         loadComponent() {
             return import('./pages/edit-user-profile/edit-profile.component').then((x) => x.EditProfileComponent)
         },
+   },
+   {
+        path: 'ride-request-info',
+        loadComponent() {
+            return import('./pages/ride-request-info/ride-request-info.component').then((x) => x.RideRequestInfoComponent)
+        },
+   },
+   {
+        path: 'ride-requests',
+        loadComponent() {
+            return import('./pages/ride-requests/ride-requests.component').then((x) => x.RideRequestsComponent)
+        },
    }
 ];

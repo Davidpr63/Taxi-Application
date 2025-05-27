@@ -3,6 +3,7 @@ from datetime import timedelta
 from Backend.App.DtoModels.login_user_dto import LoginUserDTO
 from Backend.App.DtoModels.user_dto import RegisterUserDTO
 from Backend.App.Models.user import User
+from Backend.App.Models.user_type import UserType
 from Backend.App.Utils.Jwt import jwt_config
 from Backend.App.Services.AuthUserService.i_auth_user_service import IAuthUserService
 from Backend.App.Utils.Security.security import Security
@@ -22,6 +23,7 @@ class AuthUserService(IAuthUserService):
             if message == "success":
                 new_user = User.from_dto(dto)
                 new_user.password = security.hash_password(new_user.password)
+                new_user.user_type = UserType.USER
                 self.user_table_storage.create_or_update(new_user.to_entity())
                 return message
             else:
@@ -32,8 +34,9 @@ class AuthUserService(IAuthUserService):
     def is_valid(self, dto: RegisterUserDTO) -> str:
         result = "success"
         try:
-            user_exist = self.user_table_storage.get_by_username(dto.username)
 
+            user_exist = self.user_table_storage.get_by_username(dto.username)
+            print("postoji", user_exist)
             if user_exist:
                 result = "The username already exists. Please choose a different one."
                 return result
@@ -59,7 +62,7 @@ class AuthUserService(IAuthUserService):
             ]
             if exist_user:
                 message["jwt"] = jwt_config.create_access_token(
-                    data={"sub": exist_user[0]['RowKey'], "role": "user"},
+                    data={"sub": exist_user[0]['RowKey'], "role": exist_user[0]['UserType']},
                     expires_delta=timedelta(minutes=30)
                 )
                 return message
