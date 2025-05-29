@@ -1,10 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RideRequestDTO } from '../../models/RideRequest';
 import { HomeService } from '../../services/home-service/home.service';
 import { Router } from '@angular/router';
 import { RideRequestAnimationComponent } from "../../animations/ride-request-animation/ride-request-animation.component";
+import { DriverService } from '../../services/driver-service/driver.service';
+import {  RideInformationDTO } from '../../models/RideInformationDTO';
+
+
 
 @Component({
   selector: 'app-home',
@@ -12,12 +16,18 @@ import { RideRequestAnimationComponent } from "../../animations/ride-request-ani
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent  {
   
   formError: string = "";
   isLoading: boolean = false;
-
-
+   
+  
+   RideInfoDTO: RideInformationDTO = {
+      firstName: '',
+      lastName: '',
+      car: '',
+      ETA: 0
+    }
   rideRequest: RideRequestDTO = {
     pickupAddress: "",
     destinationAddress: ""
@@ -27,8 +37,9 @@ export class HomeComponent {
   /**
    *
    */
-  constructor(private homeService: HomeService, private router: Router) {}
-
+  constructor(private homeService: HomeService, private driverService: DriverService, private router: Router, private cdRef: ChangeDetectorRef) {}
+   
+   
   submit(){
     
     if(!this.token){
@@ -36,17 +47,22 @@ export class HomeComponent {
       return
     }
 
-    this.isLoading = true;
-    this.homeService.rideRequest(this.rideRequest).subscribe({
+    this.isLoading = true;   
+    this.homeService.sendRideRequest(this.rideRequest).subscribe({
       next: (res) => {
         if(res.message === "success"){
-            console.log(res.message)
-            alert(res.message)
-            setTimeout(() => {
-
+          this.homeService.getRideInfo().subscribe({
+            next : (res) => {
+              this.RideInfoDTO = res.data
+              console.log(this.RideInfoDTO)
               this.isLoading = false;
-              this.router.navigate([''])
-            }, 2000)
+            },
+            error : (err) => {
+              console.log("get ride info error:", err)
+            }
+          })
+          
+          
         }
         else{
           alert(res.message)
@@ -57,5 +73,6 @@ export class HomeComponent {
 
       }
     })
+   
   }
 }

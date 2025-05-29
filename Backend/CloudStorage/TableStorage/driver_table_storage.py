@@ -32,13 +32,13 @@ class DriverTableStorage(IDriverTableStorage):
 
     def get_by_id(self, row_key):
         try:
-            return self.table_client.get_entity(partition_key="ride", row_key = row_key)
+            return self.table_client.get_entity(partition_key="driver", row_key = row_key)
         except Exception as e:
             print('An error was occurred while fetching data for driver by ID : ', e)
 
 
     def delete_by_id(self, row_key):
         try:
-            return self.table_client.delete_entity(partition_key="ride", row_key=row_key)
+            return self.table_client.delete_entity(partition_key="driver", row_key=row_key)
         except Exception as e:
             print('An error was occurred while trying to delete the driver ', e)

@@ -10,11 +10,11 @@
       <span></span>
     </label>    
   </div>
-   <div class="logout-button" *ngIf="isLoggedIn$ | async">
+   <div class="logout-button" *ngIf="isLoggedIn">
     <button (click)="logout()">Log out</button>
    </div>
     <div class="menu-pane">     
-      <nav *ngIf="(isLoggedIn$ | async) === false">
+      <nav *ngIf="isLoggedIn === false">
         <ul class="menu-links" >
           <li><a href="">Home</a></li> 
           <li><a href="/login">Login</a></li>
@@ -23,23 +23,24 @@
         </ul>  
       </nav>
       
-      <ng-container *ngIf="(isLoggedIn$ | async) === true">
-        <nav *ngIf="(userRole$ | async) as role">
-          <ul class="menu-links" *ngIf="role === 'admin'">
+      <ng-container *ngIf="isLoggedIn === true">
+        <nav *ngIf="userRole">
+          <ul class="menu-links" *ngIf="userRole === 'admin'">
             <li><a href="">Home</a></li> 
             <li><a href="/all-drivers">Drivers</a></li>
             <li><a href="/driver-requests">Driver requests</a></li> 
             <li><a href="/my-profile">Edit profile</a></li>  
           </ul>    
-          <ul class="menu-links" *ngIf="role === 'driver'">
+          <ul class="menu-links" *ngIf="userRole === 'driver'">
             <li><a href="">Home</a></li> 
             <li><a href="/ride-requests">Ride requests</a></li>
             <li><a href="/my-profile">Edit profile</a></li>    
           </ul>    
-          <ul class="menu-links" *ngIf="role === 'user'">
+          <ul class="menu-links" *ngIf="userRole === 'user'">
             <li><a href="">Home</a></li> 
             <li><a href="/rides">Rides</a></li>
             <li><a href="/my-profile">Edit profile</a></li>    
+            <li><a href="/taxi-licence-request">Get a taxi licence</a></li>  
           </ul> 
         </nav>
       </ng-container>

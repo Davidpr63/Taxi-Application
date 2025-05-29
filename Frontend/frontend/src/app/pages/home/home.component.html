@@ -2,7 +2,8 @@
     <div class="home-container text-c animated flipInX">
         
 
-        <p class="header-text">Enter Addresses</p>
+        <p *ngIf="!isLoading" class="header-text">Enter Addresses</p>
+        <p *ngIf="isLoading" class="header-text">Your request is processing...</p>
 
         <div  class="container-content">
             
@@ -23,14 +24,17 @@
 
                 <button type="submit" class="form-button button-l margin-b">Request Ride</button>
 
-
+                    
                 <p class="text-whitesmoke"><small>Don't have an account?</small></p>
                 <a class="text-darkyellow" href="/registration"><small>Sign Up</small></a>
             </form>
             <div *ngIf="isLoading" class="loading-page">
                 <app-ride-request-animation/>
             </div>
-        
+            <div *ngIf="!isLoading && RideInfoDTO.ETA > 0" class="eta-info">
+                Driver will be on address for {{ RideInfoDTO.ETA }} minutes.
+            </div>
+                        
         </div>
     </div>
 

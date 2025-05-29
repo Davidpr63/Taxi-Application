@@ -42,5 +42,11 @@ export const routes: Routes = [
         loadComponent() {
             return import('./pages/ride-requests/ride-requests.component').then((x) => x.RideRequestsComponent)
         },
+   },
+   {
+        path: 'ride-information',
+        loadComponent() {
+            return import('./pages/ride-information/ride-information.component').then((x) => x.RideInformationComponent)
+        },
    }
 ];

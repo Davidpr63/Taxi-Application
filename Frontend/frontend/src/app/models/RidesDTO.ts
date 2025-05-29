@@ -7,3 +7,7 @@ export interface RidesDTO {
     datetime: string;
     status: string;
 }
+
+export interface RideIdDTO{
+    rideId : string;
+}

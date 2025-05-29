@@ -1,5 +1,5 @@
 import uuid
-
+from datetime import datetime
 from Backend.App.DtoModels.ride_dto import RideDTO
 
 PARTITION_KEY = 'ride'
@@ -21,13 +21,13 @@ class Ride:
             passangerLastname = last_name,
             pickupAddress = self.pickup_address,
             destinationAddress = self.destination_address,
-            datetime = self.datetime,
+            datetime=str(self.datetime),
             status = self.status
         )
     def to_entity(self) -> dict:
         return {
             "PartitionKey": PARTITION_KEY,
-            "RowKey": str(uuid.uuid4()),
+            "RowKey": self.ride_id,
             "PickupAddress":self.pickup_address,
             "DestinationAddress":self.destination_address,
             "DateTime":self.datetime,
@@ -42,7 +42,7 @@ class Ride:
             ride_id = entity.get('RowKey'),
             pickup_address = entity.get('PickupAddress'),
             destination_address = entity.get('DestinationAddress'),
-            datetime = entity.get('DateTime').isoformat(),
+            datetime = entity.get('DateTime'),
             status=entity.get('Status'),
             user_id = entity.get('UserId'),
             driver_id = entity.get('DriverId')

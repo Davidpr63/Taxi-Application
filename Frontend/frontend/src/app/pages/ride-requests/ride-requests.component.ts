@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RidesDTO } from '../../models/RidesDTO';
+import { RideIdDTO, RidesDTO } from '../../models/RidesDTO';
 import { DriverService } from '../../services/driver-service/driver.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ride-requests',
@@ -13,8 +14,10 @@ export class RideRequestsComponent implements OnInit {
 
 
   rides: RidesDTO[] = [];
-  
-  constructor(private driverService: DriverService) {}
+  rideIdDTO : RideIdDTO = {
+    rideId : ''
+  }
+  constructor(private driverService: DriverService, private router: Router) {}
 
   ngOnInit(): void {
     this.driverService.getRideRequests().subscribe({
@@ -28,6 +31,19 @@ export class RideRequestsComponent implements OnInit {
     })
   }
   acceptRide(rideId : string){
-
+    console.log('ride -> ',rideId)
+    this.rideIdDTO.rideId = rideId;
+    this.driverService.acceptRide(this.rideIdDTO).subscribe({
+      next: (res) => {
+        if(res.message === "success")
+          alert('success')
+        else{
+          alert(res.message)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 }
