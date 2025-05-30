@@ -2,34 +2,15 @@
     <div class="form-container text-c animated flipInX">
         
 
-        <p class="header-text">Confirmation Form</p>
+        <p class="header-text">Driver will arrive for {{rideInfo.ETA}} minutes...</p>
 
         <div  class="container-content">
             <form  class="margin-t">
-                <label class="form-label">First Name:</label>
-                <div class="form-group margin-b-md">
-                    <input  name="firstName" type="text" class="form-control" readonly />
-                </div>
-                <label class="form-label">Last Name:</label>    
-                <div class="form-group margin-b-md">
-                    <input  name="lastName" type="text" class="form-control" readonly />
-                </div>
-                <label class="form-label">Car:</label>
-                <div class="form-group margin-b-md">
-                    <input  name="car" type="text" class="form-control" readonly />
-                </div>
-                <label class="form-label">When you can arrive on pickup address (minutes):</label>
-                <div class="form-group margin-b-md">
-                    <input [(ngModel)]="ETA" name="ETA" type="number" class="form-control" required />
-                </div>
+                <label class="form-label">Driver: {{rideInfo.DriverFirstName}} {{rideInfo.DriverLastName}}</label>
+            
+                <label class="form-label">Car: {{rideInfo.DriverCar}}</label>
 
-                <div class="form-group margin-b-md" *ngIf="ConfirmationError">
-                    <div class="error-message">
-                        {{ ConfirmationError }}
-                    </div>
-                </div>
-
-                <button (click)="notifyRideAccepted()" class="form-button button-l margin-b">Send</button>
+                <button (click)="close()" class="form-button button-l margin-b">Close</button>
 
             </form>
 

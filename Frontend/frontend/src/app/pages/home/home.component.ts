@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
 import { RideRequestAnimationComponent } from "../../animations/ride-request-animation/ride-request-animation.component";
 import { DriverService } from '../../services/driver-service/driver.service';
 import {  RideInformationDTO } from '../../models/RideInformationDTO';
+import { RideInformationComponent } from '../ride-information/ride-information.component';
+ 
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FormsModule, RideRequestAnimationComponent],
+  imports: [CommonModule, FormsModule, RideRequestAnimationComponent, RideInformationComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -23,9 +25,9 @@ export class HomeComponent  {
    
   
    RideInfoDTO: RideInformationDTO = {
-      firstName: '',
-      lastName: '',
-      car: '',
+      DriverFirstName: '',
+      DriverLastName: '',
+      DriverCar: '',
       ETA: 0
     }
   rideRequest: RideRequestDTO = {
@@ -56,6 +58,9 @@ export class HomeComponent  {
               this.RideInfoDTO = res.data
               console.log(this.RideInfoDTO)
               this.isLoading = false;
+              setTimeout(() => {
+                this.RideInfoDTO.ETA = 0;
+              }, 2000);
             },
             error : (err) => {
               console.log("get ride info error:", err)

@@ -1,0 +1,35 @@
+<div class="wrapper">
+    <div class="form-container text-c animated flipInX">
+        
+
+        <p class="header-text">Fill out the form</p>
+
+        <div  class="container-content">
+            <form (submit)="sendRequest()" class="margin-t">
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="licenseFormDto.car" name="car" type="text" class="form-control" placeholder="Your car..." required />
+                </div>
+
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="licenseFormDto.licensePlate" name="licensePlate" type="text" class="form-control" placeholder="License plate..." required />
+                </div>
+                <div class="form-group margin-b-md">
+                    <input [(ngModel)]="licenseFormDto.email" name="email" type="text" class="form-control" placeholder="Email..." required />
+                </div>
+
+                <div class="form-group margin-b-md" *ngIf="formError">
+                    <div class="error-message">
+                        {{ formError }}
+                    </div>
+                </div>
+
+                <button type="submit" class="form-button button-l margin-b">Send Request</button>
+
+                
+            </form>
+
+        
+        </div>
+    </div>
+
+</div>

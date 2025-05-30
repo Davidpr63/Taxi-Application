@@ -2,12 +2,12 @@
     <div class="home-container text-c animated flipInX">
         
 
-        <p *ngIf="!isLoading" class="header-text">Enter Addresses</p>
+        <p *ngIf="!isLoading  && RideInfoDTO.ETA == 0" class="header-text">Enter Addresses</p>
         <p *ngIf="isLoading" class="header-text">Your request is processing...</p>
 
         <div  class="container-content">
             
-            <form (submit)="submit()" class="margin-t" *ngIf="!isLoading">
+            <form (submit)="submit()" class="margin-t" *ngIf="!isLoading  && RideInfoDTO.ETA == 0">
                 <div class="form-group margin-b-md">
                     <input [(ngModel)]="rideRequest.pickupAddress" name="PickupAddress" type="text" class="form-control" placeholder="Pickup address..." required />
                 </div>
@@ -32,7 +32,7 @@
                 <app-ride-request-animation/>
             </div>
             <div *ngIf="!isLoading && RideInfoDTO.ETA > 0" class="eta-info">
-                Driver will be on address for {{ RideInfoDTO.ETA }} minutes.
+              <app-ride-information [rideInfo]="RideInfoDTO"></app-ride-information>
             </div>
                         
         </div>

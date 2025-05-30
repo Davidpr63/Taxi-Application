@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
 
   loginError: string = "";
-
+  role:string | null= '';
   loginUserDto : LoginUserDTO = {
     username: "",
     password: ""
@@ -37,7 +37,20 @@ export class LoginComponent {
           
           this.auth_service.saveToken(res.jwt_token)
           this.loginError = "";
-          this.router.navigate([""])
+          this.role = this.auth_service.getRoleFromToken()
+          switch (this.role){
+            case 'user':
+              this.router.navigate([""]); break;
+            case 'driver':
+              this.router.navigate(['ride-requests']); break;
+            case 'admin' :
+              this.router.navigate(["taxi-licence-requests"]); break;
+            
+            default:
+              this.router.navigate([''])
+          }
+
+          
         }
         else
             this.loginError = res.message;

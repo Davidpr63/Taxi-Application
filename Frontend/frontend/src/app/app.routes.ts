@@ -32,9 +32,15 @@ export const routes: Routes = [
         },
    },
    {
-        path: 'ride-request-info',
+        path: 'taxi-licence-request',
         loadComponent() {
-            return import('./pages/ride-request-info/ride-request-info.component').then((x) => x.RideRequestInfoComponent)
+            return import('./pages/get-taxi-licence/get-taxi-licence.component').then((x) => x.GetTaxiLicenceComponent)
+        },
+   },
+    {
+        path: 'taxi-licence-requests',
+        loadComponent() {
+            return import('./pages/license-requests/license-requests.component').then((x) => x.LicenseRequestsComponent)
         },
    },
    {

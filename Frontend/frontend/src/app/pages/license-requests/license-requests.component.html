@@ -1,0 +1,41 @@
+<div class="page-container">
+  <h1 class="page-title">Ride Requests</h1>
+  <div class="table-container">
+    <table class="fancy-table">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Car</th>
+          <th>License Plate</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let license of licenseDTO">
+          <td>{{ license.userFirstName }}</td>
+          <td>{{ license.userLastName }}</td>
+          <td>{{ license.userEmail }}</td>
+          <td>{{ license.userPhone }}</td>
+          <td>{{ license.userCar }}</td>
+          <td>{{ license.licensePlate }}</td>
+          
+          <td>
+            <span [style.color]="license.userStatus === 'Accepted' ? 'green' : license.userStatus === 'Rejected' ? 'red' : license.userStatus === 'Pending' ? 'yellow' :'black'">
+              {{ license.userStatus }}
+            </span>
+          </td>
+          
+          <td>
+            <button (click)="approve(license.taxiLicenseId)">Approve</button>
+          </td>
+         
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

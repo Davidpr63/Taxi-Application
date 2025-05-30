@@ -1,7 +1,7 @@
 export interface RideInformationDTO {
-    firstName: string;
-    lastName: string;
-    car: string;
+    DriverFirstName: string;
+    DriverLastName: string;
+    DriverCar: string;
     ETA: number;
 }
 

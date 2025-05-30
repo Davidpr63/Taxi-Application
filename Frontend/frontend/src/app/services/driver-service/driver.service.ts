@@ -36,15 +36,7 @@ export class DriverService {
     return this.http.post(`${this.apiUrl}/accept-ride`, ride_id_dto, {headers})
   }
 
-  getRideInfo(): Observable<any>{
-
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${jwt_token}`
-    })
-
-    return this.http.get(`${this.apiUrl}/get-ride-info`, { headers })
-  }
+  
 
   notifyRideAccepted(ride_accepted_info: RideAcceptedDTO): Observable<any> {
     const jwt_token = localStorage.getItem('jwt_token');

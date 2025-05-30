@@ -13,7 +13,7 @@ body {
 .text-j { text-align: justify; }
 
 /* Text color */
-.header-text {font-weight: bold; color:lightblue}
+.header-text {font-weight: bold; color:white}
 .text-whitesmoke { color: whitesmoke; }
 .text-darkyellow { color: rgba(255, 235, 59, 0.7); }
 
@@ -30,20 +30,18 @@ body {
   
     height: 100vh;
 }
- 
+/* form container */
 .form-container {
     
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     max-width: 400px;
-    width: 90%;  
-    
+    width: 100%;  
+      
     padding: 30px;
     background-color: rgba(58, 58, 58, 0.95);
-    
-   
+    border: 1px solid #FFEB3B;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00000070;
+    animation: fadeIn 0.6s ease-in-out;
 }
 
 /* Logo */
@@ -74,18 +72,11 @@ body {
 .form-control::placeholder {
     color: #BDBDBD;
 }
-.form-label {
-    color: white;
-    font-size: 14px;
-    text-align: left;
-    display: block;
-    margin-bottom: 10px;
-}
+
 /* Buttons */
 .form-button {
-    width: 30%;
+    width: 100%;
     padding: 10px;
-    margin-top: 30px;
     border: none;
     border-radius: 4px;
     background-color: rgba(255, 235, 59, 0.24);
