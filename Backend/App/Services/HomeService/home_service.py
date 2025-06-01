@@ -22,12 +22,12 @@ class HomeService(IHomeService):
     def handle_ride_request(self, ride_request_dto: RideRequestDTO, user_row_key: str) -> dict:
         try:
 
-            new_ride = Ride(str(uuid.uuid4()),ride_request_dto.pickupAddress, ride_request_dto.destinationAddress, datetime.now(), 'Pending', user_row_key, 0)
-            entity = Ride.to_entity(new_ride)
-            print(entity)
-            self.ride_table_storage.create_or_update(entity)
+            new_ride = Ride(str(uuid.uuid4()),ride_request_dto.pickupAddress, ride_request_dto.destinationAddress, datetime.now(), 'Pending', user_row_key, '')
+            self.ride_table_storage.create_or_update(Ride.to_entity(new_ride))
+            print("made")
             while True:
                 ride = self.ride_table_storage.get_by_id(new_ride.ride_id)
+
                 if ride['Status'] == 'Accepted':
                     self.ride_table_storage.delete_by_id(new_ride.ride_id)
                     break
@@ -44,6 +44,8 @@ class HomeService(IHomeService):
     def get_ride_info(self, user_row_key: str):
         try:
             ride_info = RideInfo.from_entity(self.ride_info_table_storage.get_by_user_id(user_row_key))
+            print('ride_info:', ride_info)
+            print('license', ride_info.license_plate)
             ride_info_dto = RideInfo.driver_info_for_ride_to_dto(ride_info).dict()
             return ride_info_dto
         except Exception as e:

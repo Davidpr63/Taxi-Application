@@ -9,12 +9,16 @@ class ITaxiLicenseService(ABC):
 
 
     @abstractmethod
-    def accept_request(self, user_row_key: str, licence_request_dto: TaxiLicenseRequestDTO):
+    def handle_request(self, user_row_key: str, licence_request_dto: TaxiLicenseRequestDTO):
         pass
 
     @abstractmethod
     def get_license_requests(self):
         pass
     @abstractmethod
-    def approve_driver(self, licence_row_key: str):
+    def approve_request(self, licence_row_key: str):
+        pass
+
+    @abstractmethod
+    def reject_request(self, licence_row_key: str):
         pass

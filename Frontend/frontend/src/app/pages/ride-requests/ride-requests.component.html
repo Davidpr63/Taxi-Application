@@ -16,21 +16,19 @@
       <tbody>
         
         <tr *ngFor="let ride of rides">
-          <td>{{ ride.passangerFirstname }}</td>
-          <td>{{ ride.passangerLastname }}</td>
-          <td>{{ ride.pickupAddress }}</td>
-          <td>{{ ride.destinationAddress }}</td>
-          <td>{{ ride.datetime | date: 'dd.MM.yyyy. HH:mm' }}</td>
-          <td>
+          <td data-label="Firstname">{{ ride.passangerFirstname }}</td>
+          <td data-label="Lastname">{{ ride.passangerLastname }}</td>
+          <td data-label="Pickup address">{{ ride.pickupAddress }}</td>
+          <td data-label="Destination address">{{ ride.destinationAddress }}</td>
+          <td data-label="Date Time">{{ ride.datetime | date: 'dd.MM.yyyy. HH:mm' }}</td>
+          <td data-label="Status">
             <span [style.color]="ride.status === 'Accepted' ? 'green' : ride.status === 'Rejected' ? 'red' : ride.status === 'Pending' ? 'yellow' :'black'">
               {{ ride.status }}
             </span>
           </td>
-          
-          <td>
+          <td data-label="Actions">
             <button (click)="acceptRide(ride.rideId)">Accept</button>
           </td>
-         
         </tr>
       </tbody>
     </table>

@@ -33,7 +33,7 @@ class User:
     def to_entity(self) -> dict:
         return {
             "PartitionKey": self.PARTITION_KEY,
-            "RowKey": str(uuid.uuid4()),
+            "RowKey": self.user_id,
             "FirstName":self.first_name,
             "LastName":self.last_name,
             "Username":self.username,

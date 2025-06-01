@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfileDTO } from '../../models/UserDTO';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user-service/user-service.service';
+import { ToastService } from '../../services/toast-service/toast.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -29,7 +30,7 @@ export class EditProfileComponent implements OnInit {
     confirm_password: "",
     phone_number: ""
   }
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private toastrService: ToastService) {}
 
   ngOnInit(): void {
     this.userService.GetUserData().subscribe({
@@ -54,7 +55,7 @@ export class EditProfileComponent implements OnInit {
     this.userService.updateUserData(this.newUserDataDTO).subscribe({
       next: (data) => {
         if(data.message === "success"){
-          alert("Data have successfuly updated")
+          this.toastrService.success('Data has been successfully updated')
           this.EditError = "";
         }
           

@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RideIdDTO, RidesDTO } from '../../models/RidesDTO';
-import { RideAcceptedDTO } from '../../models/RideInformationDTO';
+import { enviroment } from '../../../enviroments/envitoment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { RideAcceptedDTO } from '../../models/RideInformationDTO';
 export class DriverService {
 
    
-  private apiUrl = "http://localhost:8000/api/driver";
+  private apiUrl = enviroment.apiUrlDriver;
 
   private rideAccepted = new Subject<number>();
   rideAccepted$ = this.rideAccepted.asObservable();
@@ -38,14 +39,6 @@ export class DriverService {
 
   
 
-  notifyRideAccepted(ride_accepted_info: RideAcceptedDTO): Observable<any> {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${jwt_token}`
-    })
-    
-    return this.http.post(`${this.apiUrl}/ride-accepted`, ride_accepted_info, {headers} )
-  }
-   
+
   
 }

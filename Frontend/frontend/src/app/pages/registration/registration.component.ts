@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast-service/toast.service';
 
 @Component({
   selector: 'app-registration',
@@ -24,7 +25,7 @@ export class RegistrationComponent {
     phone_number: "",  
   }
  
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private toastrService: ToastService) { }
 
   registration(){
     if(!this.user.first_name || !this.user.last_name || !this.user.username || !this.user.password || !this.user.confirm_password || !this.user.phone_number) {
@@ -34,7 +35,7 @@ export class RegistrationComponent {
     this.authService.register(this.user).subscribe({
       next: (res) => {
         if(res.message === "success"){
-          alert(res.message)
+          this.toastrService.success('You have successfully registered.')
           this.registrationError = "";
           this.router.navigate(['/login']);
         }

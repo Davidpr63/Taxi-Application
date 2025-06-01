@@ -4,13 +4,14 @@ import { LoginUserDTO, RegisterUserDTO } from '../../models/UserDTO';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserType } from '../../models/UserType';
+import { enviroment } from '../../../enviroments/envitoment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = "http://localhost:8000/api/auth";
+  private apiUrl = enviroment.apiUrlAuth;
 
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   private role = new BehaviorSubject<string | null>(this.getRoleFromToken());

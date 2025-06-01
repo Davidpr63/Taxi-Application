@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LicenseDTO, LicenseIdDTO } from '../../models/TaxiLicencesRequestDTO';
 import { CommonModule } from '@angular/common';
 import { TaxiLicenseService } from '../../services/taxi-licence-service/taxi-licence.service';
+import { ToastService } from '../../services/toast-service/toast.service';
 
 @Component({
   selector: 'app-license-requests',
@@ -19,9 +20,9 @@ export class LicenseRequestsComponent implements OnInit{
   /**
    *
    */
-  constructor(private taxiLicense: TaxiLicenseService) {}
+  constructor(private taxiLicenseService: TaxiLicenseService, private toastrService: ToastService) {}
   ngOnInit(): void {
-    this.taxiLicense.getRequests().subscribe({
+    this.taxiLicenseService.getRequests().subscribe({
       next : (res) => {
         console.log(res.data)
         this.licenseDTO = res.data
@@ -34,13 +35,37 @@ export class LicenseRequestsComponent implements OnInit{
 
   approve(taxiLicenseId: string){
     this.licenseId.licenseId = taxiLicenseId
-    console.log('license -> ', this.licenseId)
-    this.taxiLicense.approve(this.licenseId).subscribe({
+    
+    this.taxiLicenseService.approve(this.licenseId).subscribe({
       next : (res) => {
-        alert(res.message)
+        if(res.message === 'success')
+        {
+          this.toastrService.success('You have successfully approved the request')
+
+        }
+        else
+          this.toastrService.warning("You already approved the request")
       },
       error: (err) => {
-        console.log("handle requests error", err)
+        console.log("approve the request error", err)
+      }
+    })
+  }
+  reject(taxiLicenseId: string){
+    this.licenseId.licenseId = taxiLicenseId;
+    
+    this.taxiLicenseService.reject(this.licenseId).subscribe({
+      next : (res) => {
+        if(res.message === 'success')
+        {
+          this.toastrService.success('You have successfully rejected the request')
+
+        }
+        else
+          this.toastrService.warning("You have already rejected the request")
+      },
+      error: (err) => {
+        console.log("reject the request error", err)
       }
     })
   }

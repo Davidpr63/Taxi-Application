@@ -20,17 +20,8 @@ export class RideInformationComponent{
     DriverFirstName: '',
     DriverLastName: '',
     DriverCar: '',
+    LicensePlate: '',
     ETA: 0
   };
-  /**
-   *
-   */
-  constructor(private router: Router) {
-    
-    
-  }
-  close(){
-    this.router.navigate([""])
-  }
-  
+
 }

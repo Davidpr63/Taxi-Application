@@ -3,6 +3,7 @@ import { TaxiLicenseRequestDTO } from '../../models/TaxiLicencesRequestDTO';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaxiLicenseService } from '../../services/taxi-licence-service/taxi-licence.service';
+import { ToastService } from '../../services/toast-service/toast.service';
 
 @Component({
   selector: 'app-get-taxi-licence',
@@ -21,12 +22,14 @@ export class GetTaxiLicenceComponent {
   /**
    *
    */
-  constructor(private taxiLicenseService: TaxiLicenseService) {}
+  constructor(private taxiLicenseService: TaxiLicenseService, private toastrService : ToastService) {}
   sendRequest(){
     this.taxiLicenseService.sendRequest(this.licenseFormDto).subscribe({
       next : (res) => {
         if(res.message === "success")
-          alert("Request have sent successfully")
+          this.toastrService.success('The request has been sent successfully')
+        else if(res.message === "failure")
+          this.toastrService.warning('You have already sent the request')
       },
       error : (err) => {
         console.log('get-taxi-licence error')

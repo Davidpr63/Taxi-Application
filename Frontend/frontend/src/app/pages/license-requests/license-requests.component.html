@@ -1,5 +1,5 @@
 <div class="page-container">
-  <h1 class="page-title">Ride Requests</h1>
+  <h1 class="page-title">Taxi License Requests</h1>
   <div class="table-container">
     <table class="fancy-table">
       <thead>
@@ -17,23 +17,23 @@
       <tbody>
         
         <tr *ngFor="let license of licenseDTO">
-          <td>{{ license.userFirstName }}</td>
-          <td>{{ license.userLastName }}</td>
-          <td>{{ license.userEmail }}</td>
-          <td>{{ license.userPhone }}</td>
-          <td>{{ license.userCar }}</td>
-          <td>{{ license.licensePlate }}</td>
-          
-          <td>
+          <td data-label="Firstname">{{ license.userFirstName }}</td>
+          <td data-label="Lastname">{{ license.userLastName }}</td>
+          <td data-label="Email">{{ license.userEmail }}</td>
+          <td data-label="Phone">{{ license.userPhone }}</td>
+          <td data-label="Car">{{ license.userCar }}</td>
+          <td data-label="License Plate">{{ license.licensePlate }}</td>
+          <td data-label="Status">
             <span [style.color]="license.userStatus === 'Accepted' ? 'green' : license.userStatus === 'Rejected' ? 'red' : license.userStatus === 'Pending' ? 'yellow' :'black'">
               {{ license.userStatus }}
             </span>
           </td>
-          
-          <td>
-            <button (click)="approve(license.taxiLicenseId)">Approve</button>
+          <td data-label="Actions">
+            <div class="button-container">
+              <button class="approve-button" (click)="approve(license.taxiLicenseId)">Approve</button>
+              <button class="reject-button" (click)="reject(license.taxiLicenseId)">Reject</button>
+            </div>
           </td>
-         
         </tr>
       </tbody>
     </table>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RideRequestDTO } from '../../models/RideRequest';
 import { HomeService } from '../../services/home-service/home.service';
@@ -8,6 +8,7 @@ import { RideRequestAnimationComponent } from "../../animations/ride-request-ani
 import { DriverService } from '../../services/driver-service/driver.service';
 import {  RideInformationDTO } from '../../models/RideInformationDTO';
 import { RideInformationComponent } from '../ride-information/ride-information.component';
+import { ToastService } from '../../services/toast-service/toast.service';
  
 
 
@@ -18,7 +19,7 @@ import { RideInformationComponent } from '../ride-information/ride-information.c
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent  {
+export class HomeComponent   {
   
   formError: string = "";
   isLoading: boolean = false;
@@ -28,6 +29,7 @@ export class HomeComponent  {
       DriverFirstName: '',
       DriverLastName: '',
       DriverCar: '',
+      LicensePlate: '',
       ETA: 0
     }
   rideRequest: RideRequestDTO = {
@@ -39,17 +41,19 @@ export class HomeComponent  {
   /**
    *
    */
-  constructor(private homeService: HomeService, private driverService: DriverService, private router: Router, private cdRef: ChangeDetectorRef) {}
+  constructor(private homeService: HomeService,private toastService: ToastService, private driverService: DriverService, private router: Router, private cdRef: ChangeDetectorRef) {}
+    
    
    
   submit(){
     
     if(!this.token){
-      this.formError = "You need to log in first.";
+      this.formError = "Plaese log in first.";
       return
     }
 
     this.isLoading = true;   
+    
     this.homeService.sendRideRequest(this.rideRequest).subscribe({
       next: (res) => {
         if(res.message === "success"){
@@ -60,7 +64,7 @@ export class HomeComponent  {
               this.isLoading = false;
               setTimeout(() => {
                 this.RideInfoDTO.ETA = 0;
-              }, 2000);
+              }, 5000);
             },
             error : (err) => {
               console.log("get ride info error:", err)
@@ -75,9 +79,10 @@ export class HomeComponent  {
         }
       },
       error: (error) => {
-
+        console.log('send ride rquest error: ', error)
       }
     })
-   
+  
   }
+ 
 }

@@ -3,7 +3,7 @@
         
 
         <p *ngIf="!isLoading  && RideInfoDTO.ETA == 0" class="header-text">Enter Addresses</p>
-        <p *ngIf="isLoading" class="header-text">Your request is processing...</p>
+        <p *ngIf="isLoading" class="header-text">Your request is being processed...</p>
 
         <div  class="container-content">
             
@@ -23,7 +23,7 @@
                 </div>
 
                 <button type="submit" class="form-button button-l margin-b">Request Ride</button>
-
+         
                     
                 <p class="text-whitesmoke"><small>Don't have an account?</small></p>
                 <a class="text-darkyellow" href="/registration"><small>Sign Up</small></a>

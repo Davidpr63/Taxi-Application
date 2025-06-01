@@ -35,31 +35,30 @@ class DriverService(IDriverService):
 
     def accept_ride(self, ride_row_key, driver_rok_key) -> str:
         try:
-            message = ''
+
             ride = Ride.from_entity(self.ride_table_storage.get_by_id(ride_row_key))
+            print(1)
             if ride.status == "Pending":
+                print(11)
                 ride.status = "Accepted"
                 ride.driver_id = driver_rok_key
                 self.ride_table_storage.create_or_update(Ride.to_entity(ride))
+                print(2)
                 self.create_ride_info(ride.user_id, driver_rok_key)
+                print(3)
                 message = "success"
                 return message
             else:
-                message = "Cannot accept a ride, because It has accepted already."
+                print(12)
+                message = "failure"
                 return message
         except Exception as e:
             print("An error occurred during accepting the ride: ", e)
 
 
-    def get_ride_information(self, driver_row_key):
-        try:
-            driver_info = Driver.from_entity(self.driver_table_storage.get_by_id(driver_row_key))
-            dto = Driver.driver_info_for_ride_to_dto(driver_info).dict()
-            return dto
-        except Exception as e:
-            print("An error was occurred while trying to get data for driver: ", e)
+
 
     def create_ride_info(self, user_id, driver_row_key):
-        driver = Driver.from_entity(self.driver_table_storage.get_by_id(driver_row_key))
-        ride_info = RideInfo(str(uuid.uuid4()), driver.first_name, driver.last_name, driver.car, 5, user_id)
+        driver = Driver.from_entity(self.driver_table_storage.get_by_user_id(driver_row_key))
+        ride_info = RideInfo(str(uuid.uuid4()), driver.first_name, driver.last_name, driver.car, driver.licensePlate,5, user_id)
         self.ride_info_table_storage.create_or_update(RideInfo.to_entity(ride_info))

@@ -36,6 +36,14 @@ class DriverTableStorage(IDriverTableStorage):
         except Exception as e:
             print('An error was occurred while fetching data for driver by ID : ', e)
 
+    def get_by_user_id(self, row_key):
+        try:
+            results = list(self.table_client.query_entities(query_filter=None))
+            driver = [x for x in results if x["UserId"] == row_key]
+            return driver[0]
+        except Exception as e:
+            print('An error was occurred while fetching data for driver by UserID : ', e)
+
 
     def delete_by_id(self, row_key):
         try:

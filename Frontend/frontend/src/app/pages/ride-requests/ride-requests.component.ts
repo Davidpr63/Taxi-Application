@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RideIdDTO, RidesDTO } from '../../models/RidesDTO';
 import { DriverService } from '../../services/driver-service/driver.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast-service/toast.service';
 
 @Component({
   selector: 'app-ride-requests',
@@ -17,13 +18,13 @@ export class RideRequestsComponent implements OnInit {
   rideIdDTO : RideIdDTO = {
     rideId : ''
   }
-  constructor(private driverService: DriverService, private router: Router) {}
+  constructor(private driverService: DriverService, private router: Router, private toastrService: ToastService) {}
 
   ngOnInit(): void {
     this.driverService.getRideRequests().subscribe({
       next: (res) =>{
         this.rides = res
-        console.log(this.rides)
+        
       },
       error: (err) => {
         console.log("response getRideRequests error :", err)
@@ -31,14 +32,14 @@ export class RideRequestsComponent implements OnInit {
     })
   }
   acceptRide(rideId : string){
-    console.log('ride -> ',rideId)
+    
     this.rideIdDTO.rideId = rideId;
     this.driverService.acceptRide(this.rideIdDTO).subscribe({
       next: (res) => {
         if(res.message === "success")
-          alert('success')
+          this.toastrService.success('You have successfully accepted a ride. You can start driving')
         else{
-          alert(res.message)
+          this.toastrService.info('Cannot accept the ride because it has already been accepted.')
         }
       },
       error: (err) => {

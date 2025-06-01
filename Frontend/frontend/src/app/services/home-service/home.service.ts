@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RideRequestDTO } from '../../models/RideRequest';
+import { enviroment } from '../../../enviroments/envitoment';
  
 
 @Injectable({
@@ -9,8 +10,7 @@ import { RideRequestDTO } from '../../models/RideRequest';
 })
 export class HomeService {
 
-  private apiUrl = "http://localhost:8000/api/home";
-  private socket!: WebSocket;
+  private apiUrl = enviroment.apiUrlHome;
 
 
   constructor(private http: HttpClient) { }

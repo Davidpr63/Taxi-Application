@@ -3,11 +3,12 @@ from Backend.App.DtoModels.ride_information_dto import RideInformationDTO
 PARTITION_KEY = 'rideinfo'
 class RideInfo:
 
-    def __init__(self, ride_info_id, driver_first_name, driver_last_name, driver_car, eta, user_id):
+    def __init__(self, ride_info_id, driver_first_name, driver_last_name, driver_car, license_plate, eta, user_id):
         self.ride_info_id = ride_info_id
         self.driver_first_name = driver_first_name
         self.driver_last_name = driver_last_name
         self.driver_car = driver_car
+        self.license_plate = license_plate
         self.eta = eta # eta -> Estimate Time of Arrival
         self.user_id = user_id
 
@@ -18,6 +19,7 @@ class RideInfo:
             "DriverFirstName": self.driver_first_name,
             "DriverLastName": self.driver_last_name,
             "DriverCar": self.driver_car,
+            "LicensePlate": self.license_plate,
             "ETA":self.eta,
             "UserId": self.user_id
         }
@@ -31,6 +33,7 @@ class RideInfo:
             driver_first_name=entity.get("DriverFirstName"),
             driver_last_name=entity.get("DriverLastName"),
             driver_car=entity.get("DriverCar"),
+            license_plate=entity.get("LicensePlate"),
             eta= entity.get("ETA"),
             user_id=entity.get("UserId")
         )
@@ -40,5 +43,6 @@ class RideInfo:
             DriverFirstName= self.driver_first_name,
             DriverLastName= self.driver_last_name,
             DriverCar= self.driver_car,
+            LicensePlate=self.license_plate,
             ETA= self.eta
         )

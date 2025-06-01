@@ -13,7 +13,5 @@ class IDriverService(ABC):
     def accept_ride(self, ride_row_key, driver_row_key) -> str:
         pass
 
-    @abstractmethod
-    def get_ride_information(self, driver_row_key):
-        pass
+
 

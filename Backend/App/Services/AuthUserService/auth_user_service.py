@@ -1,3 +1,4 @@
+import uuid
 from datetime import timedelta
 
 from Backend.App.DtoModels.login_user_dto import LoginUserDTO
@@ -22,6 +23,7 @@ class AuthUserService(IAuthUserService):
             print('message', message)
             if message == "success":
                 new_user = User.from_dto(dto)
+                new_user.user_id = str(uuid.uuid4())
                 new_user.password = security.hash_password(new_user.password)
                 new_user.user_type = UserType.USER
                 self.user_table_storage.create_or_update(new_user.to_entity())

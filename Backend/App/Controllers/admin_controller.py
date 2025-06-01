@@ -15,7 +15,7 @@ def accept_licence_request(licence_request_dto: TaxiLicenseRequestDTO, token: st
     try:
         print(licence_request_dto)
         user_row_key = jwt_config.get_row_key_from_token(token)
-        result = taxi_licence_service.accept_request(user_row_key, licence_request_dto)
+        result = taxi_licence_service.handle_request(user_row_key, licence_request_dto)
         return JSONResponse(content={'message':result})
     except Exception as e:
         print(e)
@@ -28,12 +28,23 @@ def get_license_request(token: str = Depends(oauth2_scheme), taxi_license_servic
     except Exception as e:
         print(e)
 
-@router.post("/approve-driver")
+@router.post("/approve-license-request")
 def approve_driver(license_id : LicenseIdDTO, token: str = Depends(oauth2_scheme), taxi_license_service = Depends(get_taxi_licence_service)):
     try:
-        print("license ->", license_id)
-        taxi_license_service.approve_driver(license_id.licenseId)
 
-        return JSONResponse(content={"message":"success"})
+        result = taxi_license_service.approve_request(license_id.licenseId)
+
+        return JSONResponse(content={"message":result})
+    except Exception as e:
+        print(e)
+
+
+@router.post("/reject-license-request")
+def approve_driver(license_id : LicenseIdDTO, token: str = Depends(oauth2_scheme), taxi_license_service = Depends(get_taxi_licence_service)):
+    try:
+
+        result = taxi_license_service.reject_request(license_id.licenseId)
+
+        return JSONResponse(content={"message":result})
     except Exception as e:
         print(e)

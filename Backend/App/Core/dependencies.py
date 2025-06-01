@@ -42,6 +42,7 @@ def get_driver_service(
 
 def get_taxi_licence_service(
                             taxi_licence_table_storage: TaxiLicenseTableStorage = Depends(get_taxi_licence_table_storage),
-                            user_table_storage: UserTableStorage = Depends(get_user_table_storage)
+                            user_table_storage: UserTableStorage = Depends(get_user_table_storage),
+                            driver_table_storage: DriverTableStorage = Depends(get_driver_table_storage)
                              ):
-    return TaxiLicenseService(taxi_licence_table_storage, user_table_storage)
+    return TaxiLicenseService(taxi_licence_table_storage, user_table_storage, driver_table_storage)

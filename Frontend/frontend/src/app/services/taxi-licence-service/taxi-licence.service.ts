@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { LicenseIdDTO, TaxiLicenseRequestDTO } from '../../models/TaxiLicencesRequestDTO';
 import { Observable } from 'rxjs';
+import { enviroment } from '../../../enviroments/envitoment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaxiLicenseService {
 
-  private apiUrl = "http://localhost:8000/api/taxi-license";
+  private apiUrl = enviroment.apiUrlTaxiLicense;
   constructor(private http: HttpClient) { }
 
 
@@ -36,6 +37,15 @@ export class TaxiLicenseService {
       'Authorization': `Bearer ${jwt_token}`
     })
 
-    return this.http.post(`${this.apiUrl}/approve-driver`, licenseId, {headers})
+    return this.http.post(`${this.apiUrl}/approve-license-request`, licenseId, {headers})
+  }
+
+  reject(licenseId:LicenseIdDTO): Observable<any> {
+    const jwt_token = localStorage.getItem('jwt_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${jwt_token}`
+    })
+
+    return this.http.post(`${this.apiUrl}/reject-license-request`, licenseId, {headers})
   }
 }

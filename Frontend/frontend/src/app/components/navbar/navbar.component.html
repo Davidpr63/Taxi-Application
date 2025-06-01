@@ -26,7 +26,7 @@
       <ng-container *ngIf="isLoggedIn === true">
         <nav *ngIf="userRole">
           <ul class="menu-links" *ngIf="userRole === 'admin'">
-            <li><a href="/taxi-licence-requests">Driver requests</a></li> 
+            <li><a href="/taxi-licence-requests">Taxi License requests</a></li> 
             <li><a href="/my-profile">Edit profile</a></li>  
           </ul>    
           <ul class="menu-links" *ngIf="userRole === 'driver'">
@@ -36,7 +36,7 @@
           <ul class="menu-links" *ngIf="userRole === 'user'">
             <li><a href="">Home</a></li> 
             <li><a href="/my-profile">Edit profile</a></li>    
-            <li><a href="/taxi-licence-request">Get a taxi licence</a></li>  
+            <li><a href="/taxi-licence-request">Apply for a Taxi License</a></li>  
           </ul> 
         </nav>
       </ng-container>
